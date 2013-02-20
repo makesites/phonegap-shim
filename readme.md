@@ -1,10 +1,16 @@
-# Project moved: [https://github.com/makesites/phonegap-shim](https://github.com/makesites/phonegap-shim)
-
 ## Phonegap Shim
 
-Lightweight solution to debug web apps before compiling with phonegap. 
+Lightweight solution to debug Phonegap apps on the browser. 
 
-The lib extends the PhoneGap namespace, so it needs to be included after phonegpa.js
+The lib extends the PhoneGap namespace, so it requires the phonegap.js lib.
+
+
+## Install
+
+Using bower:
+```
+bower install phonegap.shim
+```
 
 ## Usage 
 
