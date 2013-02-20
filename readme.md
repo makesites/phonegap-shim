@@ -1,3 +1,4 @@
+# Project moved: [https://github.com/makesites/phonegap-shim](https://github.com/makesites/phonegap-shim)
 
 ## Phonegap Shim
 
