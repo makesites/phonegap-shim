@@ -68,21 +68,13 @@
                     //
                     var self = this;
                     //var onLocationChange = this.onLocationChange || false;
-                    // exit now if there's noting to monitor (or nothing to do_)
-                    //if( !this.popup || !onLocationChange ) return;
+                    // exit now if there's noting to monitor (or the window was closed)
+					//if( !this.popup || !onLocationChange ) return;
                     if( !this.popup || this.popup.location == null ) return;
                     // get url of other window
-                    var url = this.popup.location.href || false;
-                    //stop monitoring if the window was closed
-                    if( !url ){
-                        // wait for it...
-                        
-                        // reset
-                        //this.popup = false;
-                        //this.url = false;
-                        //return;
-                    }
-                    
+                    var url = this.findURL();
+					// if url is null (not valid) quit the cycle
+					if( url == null ) return;
                     // first reset for free ??
                     if( !this.url ) {
                         this.url = url;
@@ -105,14 +97,42 @@
                 showWebPage : function( url ){
                     // load in a popup
                     this.popup = window.open(url, "_blank");
-                    //window.location = url;
-                    //start monitoring the URL
-                    this.monitor();
+                   //start monitoring the URL
+					this.monitor();
                 },
                 
+				findURL : function(){ 
+					 // if we can't read the location of the popup
+					// we will have to fallback to postMessage
+					if(typeof this.popup.location.href == "undefined"){
+						this.postMessage();
+						return null;
+					}
+					// if not a valid url...
+					return ( this.popup.location.href.search(/^http/) === 0 ) ? this.popup.location.href : false;
+				}, 
+				
+				postMessage : function(){
+					var self = this;
+					var target = this.target || window.location.href;
+					window.addEventListener("message", function(e){ self.receiveMessage(e) }, false);
+					this.popup.postMessage("location", target);
+				}, 
+				
+				receiveMessage : function(event){
+					// Convention: when using postMessage pass the full url in the data
+					var url = event.data;
+					if( this.onLocationChange ){ 
+						this.onLocationChange( url );
+					}
+					// reset URL
+					this.url = url;
+				}, 
+				
                 close : function(){
                     this.popup.close();
                 }
+				
             };
             
 		};
