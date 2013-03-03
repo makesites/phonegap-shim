@@ -1,4 +1,4 @@
-## Phonegap Shim
+# Phonegap Shim
 
 Lightweight solution to debug Phonegap apps on the browser. 
 

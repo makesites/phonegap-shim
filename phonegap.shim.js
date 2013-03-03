@@ -57,6 +57,7 @@
 		
 		if(window.plugins.childBrowser == null)
 		{
+			
             // childBrowser polyfil
             window.plugins.childBrowser = {
                 
@@ -137,5 +138,6 @@
             
 		};
 	};
+
 
 })();
