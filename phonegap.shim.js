@@ -26,7 +26,9 @@
 		this.env['childbrowser'] = !(window.plugins.childBrowser == null);
 		//check the right conditions...
 		//if (this.env['mobile'] && this.env['app']) {
-		if (this.env['mobile']) {
+		if (/loaded|complete/.test(document.readyState)) {
+			fn(); // call the onload handler
+		} else if (this.env['app']) {
 			// use phonegap event
 			document.addEventListener("deviceready", fn, false);
 			// everything is normal :)
@@ -38,10 +40,10 @@
 				// IE...
 				window.attachEvent('onload', fn);
 			}
-			// add the shim!
-			this.shim();
 		}
 
+		// add the shim!
+		this.shim();
 	}
 
 	PhoneGap.shim = function(){
