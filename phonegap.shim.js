@@ -11,6 +11,7 @@
 
 (function( window ){
 
+	var isPhonegap = (cordova || PhoneGap || phonegap) && /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
 	// we will be extending the PhoneGap object with two methods
 	// - if PhoneGap is not available...
 	if(typeof PhoneGap == "undefined") PhoneGap = {};
@@ -19,7 +20,7 @@
 		// setup the environment
 		this.env = {};
 		this.env['mobile'] = !(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/) == null);
-		this.env['app'] = !(typeof Cordova == "undefined"); // not working...
+		this.env['app'] = isPhonegap;
 		// Phonegap support
 		window.plugins || (window.plugins = {});
 		//
