@@ -10,17 +10,19 @@
  */
 
 (function( window ){
-
-	var isPhonegap = (cordova || PhoneGap || phonegap) && /^file:\/{3}[^\/]/i.test(window.location.href) && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
 	// we will be extending the PhoneGap object with two methods
 	// - if PhoneGap is not available...
 	if(typeof PhoneGap == "undefined") PhoneGap = {};
+	// setup the environment
+	var env = {
+		mobile : /ios|iphone|ipod|ipad|android|webos|blackberry|windows/i.test(navigator.userAgent),
+		browser : /safari|chrome|firefox|opera|msie/i.test(navigator.userAgent),
+		app : this.mobile && !(this.browser)
+	}
 
 	PhoneGap.init = function( fn ){
-		// setup the environment
-		this.env = {};
-		this.env['mobile'] = !(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/) == null);
-		this.env['app'] = isPhonegap;
+		// local variables
+		this.env = env;
 		// Phonegap support
 		window.plugins || (window.plugins = {});
 		//
