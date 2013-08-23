@@ -17,8 +17,10 @@
 	var env = {
 		mobile : /ios|iphone|ipod|ipad|android|webos|blackberry|windows/i.test(navigator.userAgent),
 		browser : /safari|chrome|firefox|opera|msie/i.test(navigator.userAgent),
-		app : this.mobile && !(this.browser)
+		app : false
 	}
+	// app state still unclear...
+	env.app = env.mobile && !(env.browser);
 
 	PhoneGap.init = function( fn ){
 		// local variables
