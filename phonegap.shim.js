@@ -15,7 +15,7 @@
 	if(typeof PhoneGap == "undefined") PhoneGap = {};
 	// setup the environment
 	var env = {
-		mobile : /ios|iphone|ipod|ipad|android|webos|blackberry|windows/i.test(navigator.userAgent),
+		mobile : /ios|iphone|ipod|ipad|android|webos|blackberry|windows|IEMobile/i.test(navigator.userAgent),
 		browser : /safari|chrome|firefox|opera|msie/i.test(navigator.userAgent),
 		app : false
 	}
